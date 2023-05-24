@@ -17,7 +17,7 @@ const db = mysql.createConnection({
 });
 
 app.post('/register', (req, res) => {
-  const POST_REG_QUERY = `INSERT INTO LoginSystem.users (username, password) VALUES (?,?)`;
+  const POST_REG_QUERY = `INSERT INTO users (username, password) VALUES (?,?)`;
   const salt = bcryptjs.genSaltSync(10);
   const hashedPass = bcryptjs.hashSync(req.body.password, salt);
   const regParam = [req.body.username, hashedPass];
@@ -32,7 +32,7 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  const POST_LOGIN_QUERY = `SELECT * FROM LoginSystem.users WHERE username = ?`;
+  const POST_LOGIN_QUERY = `SELECT * FROM users WHERE username = ?`;
   const logParam = [req.body.username];
 
   db.query(POST_LOGIN_QUERY, logParam, (err, result) => {
